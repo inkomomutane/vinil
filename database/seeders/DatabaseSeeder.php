@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::updateOrCreate([
+        $us = User::updateOrCreate([
             'email' => 'administrator@iris.org'
         ], [
             'name' => 'Administrador',
@@ -24,5 +24,10 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => \Hash::make('password'),
         ]);
+            $this->call([
+                RoleSeeder::class,
+            ]);
+
+                $us->assignRole('administrator');
     }
 }
